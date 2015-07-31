@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+#include <unordered_map>
+#define ll long long
+#define ull unsigned long long
+using namespace std;
+#define ALL(x) x.begin(), x.end()
+#define UNIQUE(c) (c).resize(unique(ALL(c)) - (c).begin())
+#define mod 1000000007
+
+unordered_map<int, int> parent;
+int find_set(int x)
+{
+	return parent[x] == x ? x : find_set(parent[x]);
+}
+int join_sets(int x, int y)
+{
+	return parent[find_set(x)] = find_set(y);
+}
+int main()
+{
+	int t, n, a, b;
+	char c='a';
+	scanf("%d\n", &t);
+	while (t--)
+	{
+		scanf("%d", &n);
+		int s = 0, ns = 0;
+		for (int i = 1; i <= n; i++)
+			parent[i] = i;
+		char line[100];
+		getchar();
+		while (gets(line))
+		{
+			if (line[0] == '\0')break;
+			sscanf(line,"%c %d %d",&c,&a, &b);
+				c == 'c' ? join_sets(a, b) : find_set(a) == find_set(b) ? s++ : ns++;
+		}
+		printf("%d,%d\n", s, ns);
+		if (t)printf("\n");
+	}
+
+}
